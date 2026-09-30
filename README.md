@@ -13,9 +13,47 @@ Real-time facial recognition + fall detection over existing CCTV cameras (RTSP s
 | 3 | Facial Recognition (Known vs Unknown) | ✅ Done |
 | 4 | Fall Detection Integration (Pose + Face ID) | ✅ Done |
 | 5 | RTSP Stream + Alerting (SMS/WhatsApp) | ✅ Done |
-| 6 | Dashboard / Web UI | 🔲 Planned |
+| 6 | Fall Threshold Tuning (URFD/Le2i datasets) | 🔧 In Progress |
+| 7 | Multi-Camera Stream Manager | 🔲 Planned |
+| 8 | Web Dashboard (Live View + Event History) | 🔲 Planned |
+| 9 | Face Enrollment Web UI | 🔲 Planned |
+| 10 | GCP Cloud Deployment | 🔲 Planned |
+| 11 | Liveness / Anti-Spoofing Detection | 🔲 Planned |
 
-**Currently working on:** Testing & tuning fall detection thresholds against real datasets (URFD / Le2i).
+**Currently working on:** Tuning fall detection thresholds against real datasets (URFD / Le2i).
+
+---
+
+## Roadmap & Next Steps
+
+### Immediate (Current Sprint)
+
+- [ ] **Threshold Tuning:** Run `is_down_posture()` landmark extraction over labeled URFD and Le2i video clips to find optimal values for `ASPECT_RATIO_THRESHOLD`, `LOW_POSITION_THRESHOLD`, and `CONFIRM_SECONDS` — the current values are starting guesses, not validated.
+- [ ] **Model Benchmarking:** Compare SFace vs ArcFace vs GhostFaceNet accuracy and CPU cost per frame to pick the best model for always-on edge deployment.
+- [ ] **Edge Hardware Profiling:** Benchmark actual FPS and latency on the target deployment hardware (laptop GPU, Jetson, or cloud VM).
+
+### Short-Term (Next 2-4 Weeks)
+
+- [ ] **Multi-Camera Stream Manager:** Build a process manager that handles N RTSP streams in parallel, each with its own inference thread and watchdog for reconnection.
+- [ ] **Web Dashboard:** A simple Flask/FastAPI + HTML dashboard showing:
+  - Live camera grid view
+  - Event history table (falls, unknown detections) with snapshot thumbnails
+  - Per-camera status indicators (online/offline/alert)
+- [ ] **Face Enrollment UI:** A web page to upload photos and register new residents/staff into `known_faces/` without touching the filesystem manually.
+- [ ] **Database Integration:** Move from CSV event logs to a proper database (PostgreSQL or SQLite) for searchable, filterable event history.
+- [ ] **WhatsApp Business API:** Replace Twilio SMS with WhatsApp Business Cloud API for richer alerts (photo of the event + location tag).
+
+### Long-Term (Production Readiness)
+
+- [ ] **GCP Cloud Deployment:** Deploy the tiered architecture on Google Cloud:
+  - Tier 1/2 on Compute Engine (always-on, CPU-only)
+  - Tier 3 on Cloud Run with GPU (burst only on confirmed events)
+  - Pub/Sub for event routing between tiers
+- [ ] **Liveness / Anti-Spoofing:** Integrate passive liveness detection (e.g., MiniFASNet) to prevent photo-based spoofing of the face recognition system.
+- [ ] **Trained Fall Classifier:** Move beyond geometric heuristics to a trained classifier on pose keypoint sequences (e.g., Temporal CNN or LSTM on URFD/Le2i features) for higher accuracy.
+- [ ] **Multi-Person Tracking:** Track and identify multiple people simultaneously in the same frame using person re-identification.
+- [ ] **Night Vision Handling:** Add IR/low-light preprocessing pipeline for cameras with poor night-time image quality.
+- [ ] **Audit & Compliance:** Implement data retention policies, access controls, and anonymization for biometric data to comply with privacy regulations.
 
 ---
 
