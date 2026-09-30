@@ -1,0 +1,10 @@
+# Face recognition
+deepface==0.0.93
+tf-keras          # deepface needs this alongside recent TensorFlow
+opencv-python
+
+# Pose / fall detection
+mediapipe
+
+# General
+numpy
