@@ -1,0 +1,10 @@
+{
+  "restart_limit": 3,
+  "restart_delay": 5,
+  "startup_timeout": 300,
+  "stall_timeout": 60,
+  "cameras": [
+    {"id": "laptop", "source": 0, "enabled": true, "face_id": false},
+    {"id": "hallway", "source_env": "SENTRYCARE_HALLWAY_RTSP", "enabled": false, "face_id": true}
+  ]
+}

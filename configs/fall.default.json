@@ -1,0 +1,7 @@
+{
+  "aspect_ratio_threshold": 1.3,
+  "low_position_threshold": 0.55,
+  "confirm_seconds": 3.0,
+  "recover_frames": 8,
+  "min_visibility": 0.5
+}

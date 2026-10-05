@@ -1,8 +1,8 @@
-"""Compatibility entry point; implementation: sentrycare.app."""
+"""Compatibility entry point; implementation: sentrycare.evaluation."""
 import importlib
 import sys
 
-_module = importlib.import_module('sentrycare.app')
+_module = importlib.import_module('sentrycare.evaluation')
 if __name__ == '__main__':
     raise SystemExit(_module.main())
 else:

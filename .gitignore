@@ -2,6 +2,12 @@
 venv/
 .venv/
 env/
+.runtime/
+*.egg-info/
+build/
+dist/
+.env
+configs/cameras.json
 
 # Python cache
 __pycache__/
@@ -14,6 +20,14 @@ ds_model_*.json
 
 # Captured data (don't push personal photos)
 captured_faces/
+known_faces/
+datasets/
+evaluation/features.json
+evaluation/report.json
+evaluation/fall_config.json
+tmp/
+data/**
+!data/README.md
 event_logs/
 logs/
 

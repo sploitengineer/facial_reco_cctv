@@ -1,0 +1,5 @@
+path,label,split
+../data/datasets/urfd/fall-01.mp4,fall,train
+../data/datasets/urfd/adl-01.mp4,adl,train
+../data/datasets/le2i/fall-02.avi,fall,validation
+../data/datasets/le2i/adl-02.avi,adl,validation

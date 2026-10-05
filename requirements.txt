@@ -1,10 +1,11 @@
 # Face recognition
 deepface==0.0.93
-tf-keras          # deepface needs this alongside recent TensorFlow
-opencv-python
+tf-keras==2.18.0
+tensorflow==2.18.0
+opencv-python==4.11.0.86
 
 # Pose / fall detection
-mediapipe
+mediapipe==0.10.21  # legacy mp.solutions.pose API; Python 3.11/3.12
 
 # General
-numpy
+numpy==1.26.4
