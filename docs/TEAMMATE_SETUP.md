@@ -1,4 +1,4 @@
-# Teammate setup and test checklist
+# Setup and test checklist
 
 These instructions are for a fresh Windows checkout. The original developer's Python environment, downloaded models, photos, datasets, and camera configuration are local files; they are not included in GitHub. Each teammate must prepare their own machine.
 
@@ -130,8 +130,6 @@ Get-Content data\logs\heartbeat_laptop.json
 
 The four recordings are a pipeline sample, not an accuracy benchmark. The initial training fall was missed across the default grid. Do not apply the exported candidate to a deployment. Next work is analysis of that miss and a broader subject/session-separated evaluation.
 
-## What to share with the team
-
-Report your Python version, webcam index, whether landmarks appeared, whether your enrolled name was recognized, supervisor status/frame progress, and any errors. Share test results or relevant error text rather than personal photos, tokens, or camera credentials.
+## What to do next
 
 The next optional integrations are a real RTSP camera and Twilio notifications. They require your own camera address/account configuration; no signup or SMS is needed for the steps above. See `NEXT_STEPS.md` and the main README for those integrations.
