@@ -9,14 +9,21 @@ description = "CCTV resident-safety analytics and fall-threshold evaluation"
 requires-python = ">=3.11,<3.13"
 dynamic = ["dependencies"]
 
+[project.optional-dependencies]
+browser-tests = ["playwright==1.64.1"]
+
 [project.scripts]
 sentrycare = "sentrycare.app:main"
 sentrycare-evaluate = "sentrycare.evaluation:main"
 sentrycare-cameras = "sentrycare.cameras:main"
 sentrycare-doctor = "sentrycare.doctor:main"
+sentrycare-studio = "sentrycare.web:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 include = ["sentrycare*", "examples*"]
+
+[tool.setuptools.package-data]
+sentrycare = ["web/templates/*.html", "web/static/*.css", "web/static/*.js"]

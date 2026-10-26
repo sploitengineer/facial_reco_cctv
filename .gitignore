@@ -7,7 +7,58 @@ env/
 build/
 dist/
 .env
+.env.*
+!.env.example
+*.zip
 configs/cameras.json
+configs/cameras.*.json
+!configs/cameras.example.json
+
+# Personal photos and camera recordings, wherever they are saved
+*.[jJ][pP][gG]
+*.[jJ][pP][eE][gG]
+*.[pP][nN][gG]
+*.[wW][eE][bB][pP]
+*.[bB][mM][pP]
+*.[gG][iI][fF]
+*.[tT][iI][fF]
+*.[tT][iI][fF][fF]
+*.[hH][eE][iI][cC]
+*.[hH][eE][iI][fF]
+*.[mM][pP]4
+*.[aA][vV][iI]
+*.[mM][oO][vV]
+*.[mM][kK][vV]
+*.[wW][eE][bB][mM]
+*.y4m
+*.yuv
+
+# Biometric features, local databases, downloaded/trained models
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.joblib
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.onnx
+*.tflite
+*.h5
+*.keras
+*.pt
+*.pth
+
+# Local credentials and machine state
+*.pem
+*.key
+*.p12
+.aws/
+.cache/
+.pytest_cache/
 
 # Python cache
 __pycache__/

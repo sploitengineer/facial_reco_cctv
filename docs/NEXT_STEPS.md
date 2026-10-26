@@ -1,11 +1,11 @@
-# Steps requiring your input
+# What to do next
 
-The Python environment, package installation, camera-0 configuration, model download, and official four-clip URFD sample download have been handled locally. No browser account is needed for those steps.
+1. Start Studio with `Start SentryCare.cmd` or `.venv/Scripts/python -m sentrycare.web`, then open http://127.0.0.1:8765. Allow the camera when you click **Start camera**.
+2. Open **Saved profiles**. Imported images and features stay on the original machine; they are not included in a Git checkout. On that machine, three profiles are ready and two need additional photos. A teammate's fresh checkout starts without personal enrollment data.
+3. In **Enroll a person**, select the incomplete person, capture front/left/right/slight-up/slight-down photos, and click **Build profile**. The UI explains any rejected samples. For a new person, enter their name first.
+4. Open **Live monitoring**. Check known names, an unenrolled person's **Unknown** result, and normal movements under your actual lighting. Face recognition works without a full-body pose. For fall monitoring, keep shoulders and hips visible. Stop the camera using either camera control, including the global control visible on every tab.
+5. Use **Saved profiles** to inspect/remove photos and **Event history** to review posture events. All biometric data stays local under `data/studio/` and is excluded from Git.
 
-1. **Try the live view:** run `scripts/run.ps1` from the project root. Keep shoulders and hips in view; the webcam tests processed frames but found no body pose. Press `q` to stop. Test with normal movements rather than staging a dangerous fall.
-2. **Enroll known people:** place 3-5 consented reference photos per person in `data/known_faces/<name>/`, then run `scripts/run.ps1 -FaceId`. Real identity accuracy has not been measured because no reference photos are enrolled.
-3. **Add an IP camera when ready:** supply its RTSP address using the environment variable in `configs/cameras.json`, and enable that camera. A laptop webcam is the only live source tested so far.
-4. **Optional real notifications:** provide your own Twilio sender/account and destination using shell variables. No credentials, account creation, or external notification dispatch was performed.
-5. **Full research evaluation:** obtain the complete datasets under their usage terms and arrange subject/session-separated manifests. The URFD samples are for pipeline verification. The old official Le2i URL was inaccessible during this session; its availability needs checking before making a full-dataset plan.
+Next engineering work: measure live face accuracy under varied lighting, expand the identity/unknown benchmark, investigate fall misses across the full datasets, and add multi-person body tracking. The present fall heuristic is not deployment-validated; do not stage dangerous falls for testing.
 
-The default fall thresholds remain unvalidated for deployment. A full dataset benchmark and real-world false-positive review should precede changing deployment settings.
+See [STUDIO_GUIDE.md](STUDIO_GUIDE.md) for detailed steps and [ZIP_INTEGRATION.md](ZIP_INTEGRATION.md) for changes and verification. RTSP cameras and external notifications remain separate optional integrations; Studio does not dispatch SMS.

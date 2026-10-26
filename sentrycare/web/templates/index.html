@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#103c36"><title>SentryCare Studio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23103c36'/%3E%3Cpath d='M14 7h4v7h7v4h-7v7h-4v-7H7v-4h7z' fill='%23b8ebc8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/studio.css"><script src="/static/studio.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="#monitor" class="brand"><span class="brand-mark">✚</span><span>SentryCare<small>RESIDENT SAFETY STUDIO</small></span></a>
+    <div class="nav-caption">WORKSPACE</div>
+    <nav aria-label="Workspace">
+      <button class="nav-item active" data-tab="monitor"><span class="nav-icon">◉</span>Live monitoring<span class="nav-dot"></span></button>
+      <button class="nav-item" data-tab="enroll"><span class="nav-icon">⊕</span>Enroll a person</button>
+      <button class="nav-item" data-tab="profiles"><span class="nav-icon">▦</span>Saved profiles<span id="nav-count" class="nav-count">0</span></button>
+      <button class="nav-item" data-tab="events"><span class="nav-icon">◷</span>Event history</button>
+    </nav>
+    <div class="sidebar-note"><span class="note-shield">◇</span><strong>Local by design</strong><p>Your photos and recognition data stay on this computer.</p></div>
+    <div class="sidebar-bottom"><span class="avatar">SC</span><div>Research workspace<small>Single body · multiple faces</small></div></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb">Live monitoring</strong></span><div class="topbar-right"><span class="local-label">◈ &nbsp; Local workspace</span><button id="global-camera-stop" class="pill" hidden>● Camera on · Stop</button><span id="engine-state" class="pill amber"><i></i>Loading models</span></div></header>
+    <main>
+      <section class="page-heading"><div><div class="eyebrow">SENTRYCARE STUDIO</div><h1 id="page-title">A watchful eye. A safer space.</h1><p id="page-description">See who is here and monitor posture, together in one view.</p></div><div class="heading-date" id="today"></div></section>
+      <div id="engine-error" class="notice danger" hidden></div>
+      <div id="job-panel" class="job-panel" hidden aria-live="polite"></div>
+      <section id="tab-monitor" class="tab-panel">
+        <div class="stats-grid">
+          <article class="stat"><span>Ready profiles</span><strong id="stat-profiles">0 <small>people</small></strong><div><i class="tiny-dot green"></i> Built from saved photos</div></article>
+          <article class="stat"><span>Camera</span><strong id="stat-camera">Offline</strong><div id="stat-camera-note"><i class="tiny-dot"></i> Ready when you are</div></article>
+          <article class="stat"><span>Faces in view</span><strong id="stat-faces">—</strong><div>Recognition runs independently of body tracking</div></article>
+          <article class="stat"><span>Posture status</span><strong id="stat-posture">Waiting</strong><div id="stat-posture-note">Start a camera to begin</div></article>
+        </div>
+        <div class="monitor-grid">
+          <article class="card camera-card"><div class="card-heading"><div><h2>Live camera</h2><span class="subtle">Your browser camera · live preview</span></div><span class="pill neutral" id="camera-badge"><i></i>Camera off</span></div><div id="monitor-camera-slot"></div><div class="camera-footer"><span><i class="tiny-dot green"></i> Images processed locally</span><span id="latency">Analysis —</span></div></article>
+          <div class="monitor-side"><article class="card"><div class="card-heading"><h2>People in view</h2><span class="count-bubble" id="people-count">0</span></div><div id="live-people" class="live-people"><div class="empty-small"><span>◎</span><strong>No camera connected</strong><p>Start your camera to see identities here.</p></div></div></article>
+            <article class="card health-card"><h2>A little context</h2><div class="health-row"><span>Face identification</span><span class="label-good">Independent</span></div><div class="health-row"><span>Body pose</span><span id="pose-health">Waiting for camera</span></div><div class="health-row"><span>Fall confirmation</span><span>1.2 seconds</span></div><p class="help-note">Keep shoulders and hips visible for fall monitoring. Face recognition also works in a close-up.</p></article>
+            <div class="research-note"><span>ⓘ</span><p>Research prototype. Fall events need human review; the detector is not a certified safety system.</p></div>
+          </div>
+        </div>
+      </section>
+      <section id="tab-enroll" class="tab-panel" hidden>
+        <div class="enroll-grid"><article class="card enrollment-form"><div class="card-heading"><div><span class="step-number">01</span><h2>Create or choose a profile</h2></div></div>
+          <form id="person-form"><label for="person-name">Person’s name</label><div class="input-action"><input id="person-name" maxlength="60" placeholder="e.g. Alex Morgan" required autocomplete="off"><button class="button primary" type="submit">Create profile</button></div></form>
+          <label for="person-select">Or add photos to an existing person</label><select id="person-select"><option value="">Select a profile</option></select>
+          <div class="enrollment-summary" id="enroll-person-info"><span>◎</span><p>Create a profile to begin capturing.</p></div>
+          <div class="divider"></div><h3><span class="step-number">02</span> Capture different angles</h3><p class="subtle">One person, good light, and a small turn each time. Aim for 5 clear photos.</p>
+          <div class="angle-picker" role="group" aria-label="Photo angle"><button class="angle active" data-angle="front">Front</button><button class="angle" data-angle="left">Left</button><button class="angle" data-angle="right">Right</button><button class="angle" data-angle="up">Slightly up</button><button class="angle" data-angle="down">Slightly down</button></div>
+          <p id="angle-instruction" class="angle-instruction">Look straight at the camera.</p>
+          <button id="capture-button" class="button primary full" disabled>◎ &nbsp; Capture photo</button><div class="upload-divider"><span>or use existing photos</span></div><label class="button secondary full upload-button" for="photo-upload">↑ &nbsp; Upload photos<input id="photo-upload" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden></label>
+          <div class="divider"></div><h3><span class="step-number">03</span> Build recognition data</h3><p class="subtle">Save at least 3 clear photos. Building creates local face features; it does not retrain the base model.</p><button id="train-person" class="button dark full" disabled>Build profile</button>
+        </article><div><article class="card camera-card"><div class="card-heading"><div><h2>Enrollment camera</h2><span class="subtle">Only clear, single-face photos can be saved</span></div></div><div id="enroll-camera-slot"></div><div id="capture-feedback" class="capture-feedback">Start the camera and keep one face in view.</div></article><article class="card sample-card"><div class="card-heading"><h2>Saved photos</h2><span id="sample-counter" class="subtle">0 photos</span></div><div id="enroll-samples" class="sample-grid"><div class="empty-inline">Your captured photos will appear here.</div></div></article></div></div>
+      </section>
+      <section id="tab-profiles" class="tab-panel" hidden>
+        <div class="section-toolbar"><div class="search-field"><span>⌕</span><input id="profile-search" aria-label="Search profiles" placeholder="Search saved people…"></div><div class="toolbar-actions"><button id="import-button" class="button secondary">↓ Import existing photos</button><button id="train-all" class="button dark">Build all profiles</button><button class="button primary" data-go="enroll">+ Enroll a person</button></div></div>
+        <div id="profiles-grid" class="profiles-grid"></div>
+        <div class="notice"><strong>Keep the good angles.</strong> A few sharp, varied photos work better than many blurry duplicates. Removing a photo also removes its saved face features.</div>
+      </section>
+      <section id="tab-events" class="tab-panel" hidden><article class="card"><div class="card-heading"><div><h2>Monitoring events</h2><span class="subtle">Confirmed posture events from this workspace</span></div><button id="refresh-events" class="button secondary small">Refresh</button></div><div class="table-scroll"><table><thead><tr><th>Event</th><th>Person</th><th>Time</th><th>Evidence</th></tr></thead><tbody id="events-body"></tbody></table></div></article><div class="notice">A name is attached only when a recognized face can be associated with the tracked body. Otherwise the event is marked “Unassigned person”. One body is monitored at a time.</div></section>
+      <footer class="page-footer"><span>✚ &nbsp; SentryCare · Made for a more attentive space</span><span>No cloud uploads · Local face data</span></footer>
+    </main>
+  </div>
+  <div id="camera-component" class="camera-component"><div class="camera-stage" id="camera-stage"><video id="video" autoplay playsinline muted hidden></video><canvas id="overlay" hidden></canvas><div id="camera-empty" class="camera-empty"><div class="camera-symbol"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="6" y="11" width="28" height="22" rx="5" stroke="currentColor" stroke-width="1.8"/><path d="m13 11 2-4h10l2 4" stroke="currentColor" stroke-width="1.8"/><circle cx="20" cy="22" r="6" stroke="currentColor" stroke-width="1.8"/></svg></div><h3>Your space, in focus.</h3><p>Connect your camera to recognize familiar<br>faces and monitor body posture.</p><button id="start-camera" class="button mint">Start camera <span>↗</span></button><small>Camera access stays on this computer</small></div><span id="live-indicator" class="live-indicator" hidden><i></i>LIVE</span></div><div class="camera-controls"><select id="camera-select" aria-label="Select camera"><option value="">Default camera</option></select><button id="stop-camera" class="button secondary small" disabled>Stop camera</button></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="confirm-dialog"><h2 id="confirm-title">Remove profile?</h2><p id="confirm-text"></p><div class="dialog-actions"><button id="cancel-delete" class="button secondary">Cancel</button><button id="confirm-delete" class="button danger-button">Remove</button></div></dialog>
+</body></html>

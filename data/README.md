@@ -6,6 +6,7 @@ Runtime files stay here and are excluded from version control.
 - `logs/`: application logs, runtime checks, supervisor status, and worker heartbeats.
 - `datasets/`: local public research datasets and their attribution.
 - `evaluation/`: manifests, cached features, threshold configurations, reports.
+- `studio/`: the UI's SQLite registry and aligned enrollment images.
 
 Existing captured images were moved into `captured_faces/` without modification.
 Override this root with `SENTRYCARE_DATA_DIR` before launching a process.
