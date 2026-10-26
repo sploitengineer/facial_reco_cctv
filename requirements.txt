@@ -9,3 +9,6 @@ mediapipe==0.10.21  # legacy mp.solutions.pose API; Python 3.11/3.12
 
 # General
 numpy==1.26.4
+
+# Local enrollment and monitoring UI
+flask==3.1.3

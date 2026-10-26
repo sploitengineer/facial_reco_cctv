@@ -2,6 +2,8 @@
 
 These instructions are for a fresh Windows checkout. The original developer's Python environment, downloaded models, photos, datasets, and camera configuration are local files; they are not included in GitHub. Each teammate must prepare their own machine.
 
+**New daily workflow:** after installation, double-click `Start SentryCare.cmd` and open http://127.0.0.1:8765. Use [Studio](STUDIO_GUIDE.md) to capture photos, build profiles, inspect saved images, recognize faces, and monitor posture. The CLI checks below remain available for troubleshooting; daily enrollment no longer requires creating folders or running separate scripts.
+
 ## 1. Get the project
 
 Open PowerShell and run:

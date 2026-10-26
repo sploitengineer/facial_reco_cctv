@@ -1,8 +1,10 @@
 # SentryCare
 
+**SentryCare Studio is now the main application:** one local web UI for camera capture, multi-angle enrollment, saved-photo galleries, building face profiles, live identification, fall monitoring, and event history. Double-click `Start SentryCare.cmd`, then open **http://127.0.0.1:8765**. See the [Studio guide](docs/STUDIO_GUIDE.md) for the full workflow and [ZIP integration report](docs/ZIP_INTEGRATION.md) for the imported changes and test results.
+
 CPU-based CCTV analytics for aged-care resident safety: pose-based fall events, detected-face identification, RTSP reconnects, event snapshots, and optional Twilio notifications.
 
-This is an academic prototype. Fall detection uses geometry and temporal confirmation; GPU confirmation, intrusion alert policy, multi-person tracking, dashboard, enrollment UI, and cloud deployment remain future work.
+This is an academic prototype. The local dashboard and enrollment UI are implemented. Fall detection uses geometry, motion evidence, and temporal confirmation; GPU confirmation, intrusion alert policy, multi-person body tracking, and cloud deployment remain future work.
 
 ## Directory structure
 
@@ -10,6 +12,11 @@ This is an academic prototype. Fall detection uses geometry and temporal confirm
 facial_recognition/
 ├── sentrycare/              # Application package
 │   ├── app.py               # One camera: inference, snapshots, alerts, heartbeat
+│   ├── web.py               # Local Studio web server
+│   ├── studio.py            # Enrollment jobs and bounded live analysis
+│   ├── registry.py          # SQLite people, images, embeddings, events
+│   ├── vision.py            # Native YuNet + aligned SFace pipeline
+│   ├── web/                 # Browser UI templates, JavaScript, and CSS
 │   ├── cameras.py           # Multiple worker processes, watchdog, restarts
 │   ├── doctor.py            # Runtime, model, and webcam checks
 │   ├── evaluation.py        # Feature extraction, threshold search, reports
@@ -30,6 +37,7 @@ facial_recognition/
 │   ├── event_logs/          # Event CSVs and snapshots, separated by camera ID
 │   ├── logs/                # Logs, health report, heartbeat, supervisor status
 │   ├── models/              # Downloaded SFace weights
+│   ├── studio/              # UI enrollment images, embeddings, events
 │   ├── datasets/            # RGB recordings, timing files, attribution
 │   └── evaluation/          # Manifests, cached features, reports, exported settings
 ├── .runtime/                # Local Python 3.12 (ignored)
@@ -45,11 +53,11 @@ The proposal is now at `docs/SentryCare_Project_Proposal.pdf`. Existing captured
 The project-local Python 3.12 environment and dependencies are installed. From the project directory:
 
 ```powershell
-# Webcam with pose detection; press q to stop
+# Start Studio; open http://127.0.0.1:8765 in your browser
 .\scripts\run.ps1
 
 # Webcam with face identification as well
-.\scripts\run.ps1 -FaceId
+.\scripts\run.ps1 -Mode webcam -FaceId
 
 # Check webcam and installed inference libraries
 .\scripts\run.ps1 -Mode doctor
@@ -62,6 +70,7 @@ If PowerShell blocks local scripts, use the Python commands directly:
 
 ```powershell
 .venv\Scripts\python -m sentrycare.app --source 0 --camera-id laptop --no-face-id
+.venv\Scripts\python -m sentrycare.web
 .venv\Scripts\python -m sentrycare.doctor --camera 0
 .venv\Scripts\python -m sentrycare.cameras --config configs/cameras.json
 ```
@@ -141,7 +150,7 @@ uv pip check --python .venv/Scripts/python.exe --cache-dir tmp/uv-cache
 
 Tests cover confirmation/recovery, unreliable poses, recording timestamps, train/held-out separation, face detection without enrollment, event logging, reconnects, worker configuration, restart limits, watchdogs, and cleanup. See `docs/VALIDATION.md` for actual integration results and `docs/NEXT_STEPS.md` for the steps requiring your input.
 
-Next development areas: full dataset evaluation, target-hardware profiling, searchable event storage, live dashboard, enrollment UI, multi-person tracking, and the proposal's GPU confirmation tier.
+Next development areas: full dataset evaluation, target-hardware profiling, multi-person body tracking, and the proposal's GPU confirmation tier. The local Studio now provides enrollment, saved-photo management, live monitoring, and SQLite event history.
 
 ## Team
 
